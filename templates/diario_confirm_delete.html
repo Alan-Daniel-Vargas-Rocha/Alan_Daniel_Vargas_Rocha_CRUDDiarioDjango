@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if object %}Editar{% else %}Nueva{% endif %} entrada</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        form p { margin-bottom: 1.25rem; display: flex; flex-direction: column; }
+        form label {
+            font-size: 0.875rem; font-weight: 600; color: #334155;
+            margin-bottom: 0.4rem; letter-spacing: 0.01em;
+        }
+        form input[type="text"],
+        form textarea {
+            width: 100%; padding: 0.75rem 1rem; border-radius: 0.75rem;
+            border: 1.5px solid #e2e8f0; background-color: #f8fafc;
+            color: #0f172a; font-size: 0.95rem;
+            transition: all 0.2s ease; outline: none;
+        }
+        form input[type="text"]:focus,
+        form textarea:focus {
+            border-color: #6366f1; background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+            transform: translateY(-1px);
+        }
+        form textarea { min-height: 180px; resize: vertical; }
+        form ul.errorlist {
+            list-style: none; padding: 0; margin: 0 0 0.35rem 0;
+        }
+        form ul.errorlist li {
+            font-size: 0.78rem; color: #dc2626; font-weight: 500;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-slate-100 via-indigo-50 to-slate-100 flex items-center justify-center p-6">
+
+    <div class="w-full max-w-lg">
+
+        <div class="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl shadow-slate-300/40
+                    border border-white/60 p-8">
+
+            <div class="text-center mb-7">
+                <h1 class="text-2xl font-bold text-slate-800 tracking-tight">
+                    {% if object %}✏️ Editar entrada{% else %}📝 Nueva entrada{% endif %}
+                </h1>
+                <p class="text-sm text-slate-500 mt-1">
+                    {% if object %}Modifica los campos que necesites{% else %}Escribe algo nuevo en tu diario{% endif %}
+                </p>
+            </div>
+
+            <form method="post" class="space-y-5">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <div class="flex gap-3 pt-2">
+                    <a href="{% url 'diario_list' %}"
+                       class="flex-1 text-center py-3 px-4 rounded-xl bg-slate-200 text-slate-700
+                              font-semibold hover:bg-slate-300 transition">
+                        Cancelar
+                    </a>
+                    <button type="submit"
+                            class="flex-1 py-3 px-4 rounded-xl
+                                   bg-gradient-to-r from-indigo-600 to-violet-600
+                                   hover:from-indigo-700 hover:to-violet-700
+                                   text-white font-semibold
+                                   shadow-lg shadow-indigo-300/50
+                                   transition-all hover:-translate-y-0.5">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
