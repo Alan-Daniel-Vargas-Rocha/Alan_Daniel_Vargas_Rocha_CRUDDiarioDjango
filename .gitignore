@@ -1,0 +1,6 @@
+# ---------- Variables de entorno ----------
+.env
+.env.*
+!.env.example 
+
+#El ! siginifica que no lo va ignorar
